@@ -6,6 +6,8 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -25,6 +27,10 @@ public class Livro implements Serializable {
 	private String titulo;
 	private String isbn;
 	private double preco;
+	
+	@Enumerated(EnumType.STRING)
+	private Genero genero;
+	
 	@Temporal(TemporalType.DATE)
 	private Calendar dataLancamento = Calendar.getInstance();
 
@@ -85,5 +91,15 @@ public class Livro implements Serializable {
 	public void removeAutor(Autor autor) {
 		this.autores.remove(autor);
 	}
+
+	public Genero getGenero() {
+		return genero;
+	}
+
+	public void setGenero(Genero genero) {
+		this.genero = genero;
+	}
+	
+	
 
 }

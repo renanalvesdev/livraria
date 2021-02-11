@@ -3,26 +3,43 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-	<h:head />
-	<h:body>
-		<div id="cabecalho">
-			<h:graphicImage library="img" name="logo.png" />
-			
-			<h:form rendered="#{usuarioLogado != null}">
-				<h:commandLink value="Logout" action="#{loginBean.deslogar}"/>
-			</h:form>
-			
-			<h1>
-				<ui:insert name="titulo"></ui:insert>
-			</h1>
-		</div>
-	
-		<div id="conteudo">
-			<ui:insert name="conteudo">
-			</ui:insert>
-		</div>
-	</h:body>
+<h:head />
+<h:body>
+	<div id="cabecalho">
+		<h:graphicImage library="img" name="logo.png" />
+
+		<p:growl id="messages" showDetail="true">
+			<p:autoUpdate/>
+		</p:growl>
+
+		<h:form>
+			<p:menuButton value="Menu" rendered="#{usuarioLogado != null}">
+				<p:menuitem value="Livros" action="livro" update="messages"
+					icon="pi pi-save" />
+				<p:menuitem value="Autores" action="autor" update="messages"
+					icon="pi pi-refresh" />
+				<p:separator />
+				<p:menuitem value="Logout" action="#{loginBean.deslogar}"
+					icon="pi pi-home" />
+			</p:menuButton>
+		</h:form>
+
+		<h:form rendered="#{usuarioLogado != null}">
+			<h:commandLink value="Logout" action="#{loginBean.deslogar}" />
+		</h:form>
+
+		<h1>
+			<ui:insert name="titulo"></ui:insert>
+		</h1>
+	</div>
+
+	<div id="conteudo">
+		<ui:insert name="conteudo">
+		</ui:insert>
+	</div>
+</h:body>
 
 </html>
