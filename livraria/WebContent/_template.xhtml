@@ -17,9 +17,11 @@
 
 		<h:form>
 			<p:menuButton value="Menu" rendered="#{usuarioLogado != null}">
-				<p:menuitem value="Livros" action="livro" update="messages"
+				<p:menuitem value="Livros" action="livro?faces-redirect=true" update="messages"
 					icon="pi pi-save" />
-				<p:menuitem value="Autores" action="autor" update="messages"
+				<p:menuitem value="Autores" action="autor?faces-redirect=true" update="messages"
+					icon="pi pi-refresh" />
+					<p:menuitem value="Vendas" action="vendas?faces-redirect=true" update="messages"
 					icon="pi pi-refresh" />
 				<p:separator />
 				<p:menuitem value="Logout" action="#{loginBean.deslogar}"
