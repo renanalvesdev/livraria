@@ -41,8 +41,7 @@ public class AutorDao implements Serializable{
 	}
 
 	public List<Autor> listaTodos() {
-		this.dao.listaTodos();
-		return null;
+		return this.dao.listaTodos();
 	}
 
 }

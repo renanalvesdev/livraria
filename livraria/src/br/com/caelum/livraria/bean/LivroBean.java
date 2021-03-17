@@ -18,6 +18,7 @@ import br.com.caelum.livraria.dao.LivroDao;
 import br.com.caelum.livraria.modelo.Autor;
 import br.com.caelum.livraria.modelo.Genero;
 import br.com.caelum.livraria.modelo.Livro;
+import br.com.caelum.livraria.tx.Transacional;
 
 @Named
 @ViewScoped
@@ -36,6 +37,9 @@ public class LivroBean implements Serializable {
 	
 	@Inject
 	AutorDao autorDao;
+	
+	@Inject 
+	FacesContext context;
 	
 	public void setAutorId(Integer autorId) {
 		this.autorId = autorId;
@@ -71,17 +75,19 @@ public class LivroBean implements Serializable {
 		this.livro = livroDao.buscaPorId(this.livro.getId()); 
 	}
 	
+	@Transacional
 	public void gravarAutor() {
 		Autor autor = autorDao.buscaPorId(this.autorId);
 		this.livro.adicionaAutor(autor);
 		System.out.println("Escrito por: " + autor.getNome());
 	}
 
+	@Transacional
 	public void gravar() {
 		System.out.println("Gravando livro " + this.livro.getTitulo());
 
 		if (livro.getAutores().isEmpty()) {
-			FacesContext.getCurrentInstance().addMessage("autor",
+			context.addMessage("autor",
 					new FacesMessage("Livro deve ter pelo menos um Autor."));
 			return;
 		}
@@ -96,6 +102,7 @@ public class LivroBean implements Serializable {
 		this.livro = new Livro();
 	}
 
+	@Transacional
 	public void remover(Livro livro) {
 		System.out.println("Removendo livro");
 		livroDao.remove(livro);
@@ -107,7 +114,7 @@ public class LivroBean implements Serializable {
 	
 	public void carregar(Livro livro) {
 		System.out.println("Carregando livro");
-		this.livro = livro;
+		this.livro = livroDao.buscaPorId(livro.getId());
 	}
 	
 	public String formAutor() {
